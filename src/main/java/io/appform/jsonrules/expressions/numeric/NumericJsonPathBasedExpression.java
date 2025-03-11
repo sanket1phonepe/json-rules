@@ -28,8 +28,6 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
-import static io.appform.jsonrules.utils.JsonUtils.mapper;
-
 /**
  * All numeric binary expressions
  */
@@ -59,8 +57,8 @@ public abstract class NumericJsonPathBasedExpression extends JsonPathBasedExpres
 
         Number numericalValue;
         if (extractValueFromPath) {
-            JsonNode jsonNode = mapper.valueToTree(JsonPath.using(JsonUtils.SUPPRESS_EXCEPTION_CONFIG)
-                    .parse(context.getNode().toString()).read(String.valueOf(value)));
+            JsonNode jsonNode = JsonPath.using(JsonUtils.SUPPRESS_EXCEPTION_CONFIG)
+                    .parse(context.getNode()).read(String.valueOf(value));
             if (jsonNode == null) {
                 return false;
             }
