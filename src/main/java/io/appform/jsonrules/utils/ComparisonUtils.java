@@ -72,8 +72,7 @@ public class ComparisonUtils {
     public static boolean compareForEquality(ExpressionEvaluationContext context, JsonNode evaluatedNode,
             Object value) {
         final boolean nodeMissingOrNullCheck = isNodeMissingOrNull(evaluatedNode);
-        final JsonNode jsonNode = JsonUtils.mapper.valueToTree(JsonPath.using(JsonUtils.SUPPRESS_EXCEPTION_CONFIG)
-                .parse(context.getNode().toString()).read(String.valueOf(value)));
+        final JsonNode jsonNode = JsonPath.using(JsonUtils.SUPPRESS_EXCEPTION_CONFIG).parse(context.getNode()).read(String.valueOf(value));
 
         if (isNodeMissingOrNull(jsonNode)) {
             return nodeMissingOrNullCheck;
@@ -96,8 +95,8 @@ public class ComparisonUtils {
     public static boolean compareForNotEquals(ExpressionEvaluationContext context, JsonNode evaluatedNode,
             Object value) {
         final boolean nodeMissingOrNullCheck = isNodeMissingOrNull(evaluatedNode);
-        final JsonNode jsonNode = JsonUtils.mapper.valueToTree(JsonPath.using(JsonUtils.SUPPRESS_EXCEPTION_CONFIG)
-                .parse(context.getNode().toString()).read(String.valueOf(value)));
+        final JsonNode jsonNode = JsonPath.using(JsonUtils.SUPPRESS_EXCEPTION_CONFIG)
+                .parse(context.getNode()).read(String.valueOf(value));
 
         if (isNodeMissingOrNull(jsonNode)) {
             return !nodeMissingOrNullCheck;
