@@ -26,6 +26,8 @@ import io.appform.jsonrules.expressions.preoperation.PreOperation;
 import io.appform.jsonrules.utils.JsonUtils;
 import lombok.*;
 
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -52,8 +54,8 @@ public class ContainsAnyExpression extends CollectionJsonPathBasedExpression {
         if (null == values || values.isEmpty() || !evaluatedNode.isArray()) {
             return false;
         }
-        final Set<Object> pathValues = JsonUtils.mapper.convertValue(evaluatedNode,
-                new TypeReference<Set<Object>>() {});
+        final Set<Object> pathValues = new HashSet<>(JsonUtils.mapper.convertValue(evaluatedNode,
+                new TypeReference<Collection<Object>>() {}));
         return !Sets.intersection(values, pathValues).isEmpty();
 
     }

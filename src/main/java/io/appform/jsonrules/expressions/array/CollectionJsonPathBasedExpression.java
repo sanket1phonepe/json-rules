@@ -30,6 +30,8 @@ import lombok.EqualsAndHashCode;
 import lombok.Singular;
 import lombok.ToString;
 
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.Set;
 
 import static io.appform.jsonrules.utils.JsonUtils.mapper;
@@ -66,7 +68,7 @@ public abstract class CollectionJsonPathBasedExpression extends JsonPathBasedExp
                 return false;
             }
             // fetch values from @values path as a set.
-            final Set<Object> extractedPathValues = mapper.convertValue(jsonNode, new TypeReference<Set<Object>>() {});
+            final Set<Object> extractedPathValues = new HashSet<>(mapper.convertValue(jsonNode, new TypeReference<Collection<Object>>() {}));
             return evaluate(evaluatedNode, extractedPathValues);
         }
 
