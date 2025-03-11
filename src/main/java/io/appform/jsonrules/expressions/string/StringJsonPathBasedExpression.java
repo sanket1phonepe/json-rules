@@ -23,12 +23,12 @@ import io.appform.jsonrules.ExpressionEvaluationContext;
 import io.appform.jsonrules.ExpressionType;
 import io.appform.jsonrules.expressions.JsonPathBasedExpression;
 import io.appform.jsonrules.expressions.preoperation.PreOperation;
-import io.appform.jsonrules.utils.ComparisonUtils;
+import io.appform.jsonrules.utils.JsonUtils;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
-import static io.appform.jsonrules.utils.ComparisonUtils.mapper;
+import static io.appform.jsonrules.utils.JsonUtils.mapper;
 
 /**
  * All string operable expressions
@@ -59,7 +59,7 @@ public abstract class StringJsonPathBasedExpression extends JsonPathBasedExpress
             return false;
         }
         if (extractValueFromPath) {
-            JsonNode jsonNode = mapper.valueToTree(JsonPath.using(ComparisonUtils.SUPPRESS_EXCEPTION_CONFIG)
+            JsonNode jsonNode = mapper.valueToTree(JsonPath.using(JsonUtils.SUPPRESS_EXCEPTION_CONFIG)
                     .parse(context.getNode().toString()).read(value));
             if (jsonNode == null || !jsonNode.isTextual()) {
                 return false;

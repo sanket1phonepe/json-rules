@@ -17,12 +17,13 @@
 
 package io.appform.jsonrules.expressions.array;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.google.common.collect.Sets;
-import com.jayway.jsonpath.JsonPath;
 import io.appform.jsonrules.ExpressionType;
 import io.appform.jsonrules.ExpressionVisitor;
 import io.appform.jsonrules.expressions.preoperation.PreOperation;
+import io.appform.jsonrules.utils.JsonUtils;
 import lombok.*;
 
 import java.util.HashSet;
@@ -52,7 +53,8 @@ public class ContainsAllExpression extends CollectionJsonPathBasedExpression {
         if (!evaluatedNode.isArray()) {
             return false;
         }
-        final Set<Object> pathValues = new HashSet<>(JsonPath.read(evaluatedNode.toString(), "$"));
+        final Set<Object> pathValues = JsonUtils.mapper.convertValue(evaluatedNode, new TypeReference<Set<Object>>() {
+        });
         final int commonElementsSize = Sets.intersection(values, pathValues).size();
         return commonElementsSize == pathValues.size();
     }
